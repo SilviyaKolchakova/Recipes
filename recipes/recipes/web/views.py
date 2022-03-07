@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect
+from django.views.generic import CreateView
 
 from recipes.web.forms import CreateRecipeForm, EditRecipeForm, DeleteRecipeForm
 from recipes.web.models import Recipe
@@ -25,18 +26,26 @@ def show_index(request):
     return render(request, 'index.html', context)
 
 
-def create_recipe(request):
-    if request.method == 'POST':
-        form = CreateRecipeForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect('show index')
-    else:
-        form = CreateRecipeForm()
-    context = {
-        'form': form,
-    }
-    return render(request, 'create.html', context)
+# def create_recipe(request):
+#     if request.method == 'POST':
+#         form = CreateRecipeForm(request.POST)
+#         if form.is_valid():
+#             form.save()
+#             return redirect('show index')
+#     else:
+#         form = CreateRecipeForm()
+#     context = {
+#         'form': form,
+#     }
+#     return render(request, 'create.html', context)
+
+class RecipeCreateView(CreateView):
+    model = Recipe
+    template_name = 'create.html'
+    fields = '__all__'
+
+    def get_absolute_url(self):
+        return redirect('show index')
 
 
 def edit_recipe(request, pk):

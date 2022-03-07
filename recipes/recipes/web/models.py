@@ -1,4 +1,6 @@
 from django.db import models
+from django.shortcuts import redirect
+
 
 class Recipe(models.Model):
     TITLE_MAX_LENGTH = 30
@@ -17,3 +19,7 @@ class Recipe(models.Model):
     )
 
     time = models.IntegerField()
+
+
+
+
