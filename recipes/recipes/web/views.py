@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect
+from django.urls import reverse_lazy, reverse
 from django.views.generic import CreateView
 
 from recipes.web.forms import CreateRecipeForm, EditRecipeForm, DeleteRecipeForm
@@ -42,10 +43,8 @@ def show_index(request):
 class RecipeCreateView(CreateView):
     model = Recipe
     template_name = 'create.html'
+    success_url = reverse_lazy('show index')
     fields = '__all__'
-
-    def get_absolute_url(self):
-        return redirect('show index')
 
 
 def edit_recipe(request, pk):
